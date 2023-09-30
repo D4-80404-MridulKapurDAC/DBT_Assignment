@@ -29,11 +29,16 @@ WHERE S.`S#` = ANY (
         SELECT MAX(QTY) FROM sp
     )
 );
+
 --7
 SELECT ename FROM emp
 WHERE emp.sal = (
     SELECT MAX(sal) FROM emp
 );
+SELECT a.ename 
+FROM emp a left outer join emp b
+on a.sal > b.sal
+WHERE b.sal IS NULL;
 --8
 SELECT S.Sname FROM S
 WHERE S.`S#` = ANY (
@@ -44,6 +49,37 @@ WHERE S.`S#` = ANY (
         SELECT SUM(QTY) as sum FROM sp GROUP BY `S#`
     )
 );
+
+SELECT S.Sname FROM S
+WHERE S.`S#` = (
+    SELECT sp.`S#` 
+    FROM sp
+    GROUP BY sp.`S#`
+    HAVING SUM(QTY) = (
+        SELECT MAX(TOT) FROM (
+            SELECT SUM(QTY) as TOT FROM sp GROUP BY `S#`
+        ) as TEMP
+    )
+);
+
+SELECT S.Sname 
+FROM sp,S
+WHERE S.`S#` = sp.`S#`
+GROUP BY sp.`S#`,S.Sname
+HAVING SUM(QTY) >= ALL (
+    SELECT SUM(QTY) FROM sp GROUP BY `S#`
+);
+
+SELECT S.Sname 
+FROM sp,S
+WHERE S.`S#` = sp.`S#`
+GROUP BY sp.`S#`,S.Sname
+HAVING SUM(QTY) = (
+    SELECT MAX(TOT) FROM (
+        SELECT SUM(QTY) as TOT FROM sp GROUP BY `S#`
+    ) as TEMP
+);
+
 --9
 SELECT dname FROM dept,emp
 WHERE dept.deptno = emp.deptno

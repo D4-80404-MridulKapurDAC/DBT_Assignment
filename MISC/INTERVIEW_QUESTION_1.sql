@@ -15,10 +15,18 @@ INSERT INTO nlarge VALUES
 (8000),
 (7000);
 
+--1
 SELECT MAX(e.num) 
 FROM nlarge a,nlarge b,nlarge c,nlarge d,nlarge e 
 WHERE a.num > b.num AND b.num > c.num AND c.num > d.num AND d.num > e.num ;
 
+SELECT A.SALARY AS SAL
+FROM (SELECT DISTINCT SALARY FROM EMPLOYEE) AS A,(SELECT DISTINCT SALARY FROM EMPLOYEE) AS B
+WHERE A.SALARY <= B.SALARY
+GROUP BY A.SALARY
+HAVING COUNT(*) = 5
+
+--2
 SELECT a.num as LARGEST , MAX(b.num) as SECOND
 FROM nlarge a,nlarge b
 WHERE a.num = (SELECT MAX(nlarge.num) FROM nlarge)
@@ -29,25 +37,23 @@ CREATE TABLE EMP(EMPNO int);
 
 INSERT INTO EMP VALUES
 (5),
+(4),
+(6),
 (9),
 (1),
 (14),
 (25),
 (20);
 
-SELECT concat(concat(b.EMPNO+1,'-'),min(a.EMPNO-1)) as ans
+SELECT b.EMPNO l,min(a.EMPNO) as r
 FROM EMP a, EMP b
-WHERE a.EMPNO NOT IN
-(SELECT a.EMPNO FROM EMP a, EMP b WHERE a.EMPNO = b.EMPNO+1)
-AND b.EMPNO NOT IN 
-(SELECT a.EMPNO FROM EMP a, EMP b WHERE a.EMPNO = b.EMPNO-1)
+WHERE a.EMPNO-1 NOT IN
+(SELECT a.EMPNO FROM EMP a)
+AND b.EMPNO+1 NOT IN 
+(SELECT a.EMPNO FROM EMP a)
 AND a.EMPNO > b.EMPNO
 GROUP BY b.EMPNO
 ORDER BY b.EMPNO;
--- AND b.num NOT IN
--- (SELECT a.num FROM nlarge a, nlarge b WHERE a.num = b.num-1)
--- AND a.num > b.num;
--- GROUP BY a.num;
 
 CREATE TABLE BANK (sno int, dep int,withd int);
 
@@ -71,12 +77,12 @@ CREATE TABLE BANK2 (dep int,withd int);
 INSERT INTO BANK2 VALUES 
 (5000,3000),
 (6000,5000),
-(2000,5000),
-(5000,5000);
+(5000,3000);
 
 SELECT SUM(b.dep - b.withd)
-FROM BANK a, BANK b
-WHERE a.sno >= b.sno
-GROUP BY a.sno 
-ORDER BY a.sno;
+FROM BANK2 a, BANK2 b ,BANK2 c
 
+--6
+SELECT CONCAT(SUBSTR(A,3,2), CONCAT(' YEARS ',CONCAT(SUBSTR(A,6,2),' MONTHS ' , CONCAT(SUBSTR(A,9,2),' DAYS')))) AS ANS
+FROM 
+(SELECT DATE_ADD('1000-01-01',INTERVAL datediff(now() , '2020-01-01') day) A) as B;
