@@ -1,0 +1,18 @@
+1) Which field of the Customers table is the primary key?
+Ans: Cnum - Primary key
+
+2) What is the 4th column of the Customers table?
+Ans: CUSTOMERS
+
+3) What is another word for row? For column?
+Ans: In RDBMS, row is also referred as entity or tuple and column is also referred as attribute.
+
+4) Why isn’t it possible to see the first five rows of a table?
+Ans: As the rows are files in themselves, they are stored on different spaces on the server. The inserted sequence is not used while displaying but the Server Ram returns the records which it finds first. 
+
+
+
+
+
+
+
