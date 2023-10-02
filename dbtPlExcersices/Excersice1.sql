@@ -10,6 +10,13 @@ END; //
 DELIMITER ;
 call question1_1(5,2);
 SELECT * FROM answer;
++------+-----------+
+| area | perimeter |
++------+-----------+
+|    7 |        20 |
++------+-----------+
+1 row in set (0.00 sec)
+
 --2
 DELIMITER //
 DROP PROCEDURE IF EXISTS question1_2;
@@ -26,6 +33,13 @@ END; //
 DELIMITER ;
 call question1_2(5,2);
 SELECT * FROM answer;
++-----------------+
+| TEMP            |
++-----------------+
+| 41 FAHRENHEIT . |
++-----------------+
+1 row in set (0.00 sec)
+
 --3
 DELIMITER //
 DROP PROCEDURE IF EXISTS question1_3;
@@ -42,3 +56,10 @@ END; //
 DELIMITER ;
 call question1_3(41);
 SELECT * FROM answer;
+
++----------------------------+
+| TEMP                       |
++----------------------------+
+| THIS IS NOT DIVISIBLE BY 5 |
++----------------------------+
+1 row in set (0.00 sec)

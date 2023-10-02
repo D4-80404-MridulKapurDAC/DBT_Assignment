@@ -19,6 +19,12 @@ END; //
 DELIMITER ;
 call question2_1(2,10);
 SELECT * FROM answer;
++----------+
+| result   |
++----------+
+| IN RANGE |
++----------+
+1 row in set (0.00 sec)
     
 --2
 CREATE TABLE triangle(sno int,sides int);
@@ -48,6 +54,13 @@ END; //
 DELIMITER ;
 call question2_2();
 SELECT * FROM answer;
++----------+
+| TRIANGLE |
++----------+
+| VALID    |
++----------+
+1 row in set (0.00 sec)
+
 --3
 CREATE TABLE sample_date(dt date);
 TRUNCATE TABLE sample_date;
@@ -75,3 +88,9 @@ END; //
 DELIMITER ;
 call question2_3();
 SELECT * FROM answer;
++--------+
+| ISLEAP |
++--------+
+| LEAP   |
++--------+
+1 row in set (0.00 sec)

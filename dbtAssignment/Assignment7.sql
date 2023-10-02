@@ -1,27 +1,6 @@
 --1
 SELECT COUNT(*) orders_count FROM ORDERS
 WHERE ODATE = '1990-10-03';
---2
-SELECT COUNT(*) city_count FROM CUSTOMER
-WHERE CITY IS NOT NULL;
---3
-SELECT Cnum,MIN(amt) minimumOrder 
-FROM ORDERS
-GROUP BY Cnum;
---4
-SELECT MIN(cname) FROM CUSTOMER 
-WHERE cname  >= 'G';
---5
-SELECT CITY,MAX(RATING)
-FROM CUSTOMER
-GROUP BY CITY;
---6
-SELECT COUNT(DISTINCT(snum)),oDATE 
-FROM ORDERS
-GROUP BY odate;
-
-QUESTION : 
-
 +--------------+
 | orders_count |
 +--------------+
@@ -29,8 +8,9 @@ QUESTION :
 +--------------+
 1 row in set (0.00 sec)
 
-QUESTION : 
-
+--2
+SELECT COUNT(*) city_count FROM CUSTOMER
+WHERE CITY IS NOT NULL;
 +------------+
 | city_count |
 +------------+
@@ -38,8 +18,10 @@ QUESTION :
 +------------+
 1 row in set (0.00 sec)
 
-QUESTION : 
-
+--3
+SELECT Cnum,MIN(amt) minimumOrder 
+FROM ORDERS
+GROUP BY Cnum;
 +------+--------------+
 | Cnum | minimumOrder |
 +------+--------------+
@@ -53,8 +35,9 @@ QUESTION :
 +------+--------------+
 7 rows in set (0.00 sec)
 
-QUESTION : 
-
+--4
+SELECT MIN(cname) FROM CUSTOMER 
+WHERE cname  >= 'G';
 +------------+
 | MIN(cname) |
 +------------+
@@ -62,8 +45,10 @@ QUESTION :
 +------------+
 1 row in set (0.00 sec)
 
-QUESTION : 
-
+--5
+SELECT CITY,MAX(RATING)
+FROM CUSTOMER
+GROUP BY CITY;
 +----------+-------------+
 | CITY     | MAX(RATING) |
 +----------+-------------+
@@ -74,8 +59,10 @@ QUESTION :
 +----------+-------------+
 4 rows in set (0.01 sec)
 
-QUESTION : 
-
+--6
+SELECT COUNT(DISTINCT(snum)),oDATE 
+FROM ORDERS
+GROUP BY odate;
 +-----------------------+------------+
 | COUNT(DISTINCT(snum)) | oDATE      |
 +-----------------------+------------+

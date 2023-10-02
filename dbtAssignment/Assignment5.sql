@@ -1,20 +1,87 @@
--- SALESPEOPLE Snum int(4),Sname varchar(10),City varchar(10),Comm float(3,2)
--- CUSTOMER Cnum int(4), Cname varchar(10), City varchar(10), Rating int(4), Snum int(4)
--- ORDERS onum int, Amt float, Odate date, Cnum int, Snum int 
+--SALESPEOPLE Snum int(4),Sname varchar(10),City varchar(10),Comm float(3,2)
+--CUSTOMER Cnum int(4), Cname varchar(10), City varchar(10), Rating int(4), Snum int(4)
+--ORDERS onum int, Amt float, Odate date, Cnum int, Snum int 
+
 --1
 SELECT * FROM ORDERS WHERE Amt >= 2000;
++------+---------+------------+------+------+
+| Onum | Amt     | Odate      | Cnum | Snum |
++------+---------+------------+------+------+
+| 3005 | 5160.45 | 1990-10-03 | 2003 | 1002 |
+| 3008 | 4723.00 | 1990-10-05 | 2006 | 1001 |
+| 3011 | 9891.88 | 1990-10-06 | 2006 | 1001 |
++------+---------+------------+------+------+
+3 rows in set (0.00 sec)
+
 --2
-SELECT Sname Name,City City FROM SALESPEOPLE WHERE Comm > 0.1
+SELECT Sname Name,City City FROM SALESPEOPLE WHERE Comm > 0.1; 
++--------+-----------+
+| Name   | City      |
++--------+-----------+
+| Peel   | London    |
+| Serres | San Jose  |
+| Motika | London    |
+| Rifkin | Barcelona |
++--------+-----------+
+4 rows in set (0.00 sec)
+
 --3
 SELECT * FROM CUSTOMER WHERE Rating > 100 OR City='Rome';
++------+----------+----------+--------+------+
+| Cnum | Cname    | City     | Rating | Snum |
++------+----------+----------+--------+------+
+| 2002 | Giovanni | Rome     |    200 | 1003 |
+| 2003 | Liu      | San Jose |    200 | 1002 |
+| 2004 | Grass    | Berlin   |    300 | 1002 |
+| 2008 | Cisneros | San Jose |    300 | 1007 |
+| 2007 | Pereira  | Rome     |    100 | 1004 |
++------+----------+----------+--------+------+
+5 rows in set (0.00 sec)
+
+
 --4
 Select * from ORDERS
 where (amt < 1000 OR
 NOT (odate = '1990-10-03'
 AND cnum > 2003));
++------+---------+------------+------+------+
+| Onum | Amt     | Odate      | Cnum | Snum |
++------+---------+------------+------+------+
+| 3001 |   18.69 | 1990-10-03 | 2008 | 1007 |
+| 3003 |  767.19 | 1990-10-03 | 2001 | 1001 |
+| 3005 | 5160.45 | 1990-10-03 | 2003 | 1002 |
+| 3009 | 1713.23 | 1990-10-04 | 2002 | 1003 |
+| 3007 |   75.75 | 1990-10-04 | 2004 | 1002 |
+| 3008 | 4723.00 | 1990-10-05 | 2006 | 1001 |
+| 3010 | 1309.95 | 1990-10-06 | 2004 | 1002 |
+| 3011 | 9891.88 | 1990-10-06 | 2006 | 1001 |
++------+---------+------------+------+------+
+8 rows in set (0.00 sec)
+
 --5
 Select * from ORDERS
 where NOT ((odate = '1990-10-03' OR snum>1006) AND amt >= 1500);
++------+---------+------------+------+------+
+| Onum | Amt     | Odate      | Cnum | Snum |
++------+---------+------------+------+------+
+| 3001 |   18.69 | 1990-10-03 | 2008 | 1007 |
+| 3003 |  767.19 | 1990-10-03 | 2001 | 1001 |
+| 3006 | 1098.16 | 1990-10-03 | 2008 | 1007 |
+| 3009 | 1713.23 | 1990-10-04 | 2002 | 1003 |
+| 3007 |   75.75 | 1990-10-04 | 2004 | 1002 |
+| 3008 | 4723.00 | 1990-10-05 | 2006 | 1001 |
+| 3010 | 1309.95 | 1990-10-06 | 2004 | 1002 |
+| 3011 | 9891.88 | 1990-10-06 | 2006 | 1001 |
++------+---------+------------+------+------+
+8 rows in set (0.00 sec)
+
 --6
-Select snum, sname, city, comm From SAELESPEOPLE 
+Select snum, sname, city, comm From SALESPEOPLE 
 WHERE comm BETWEEN .12 AND .14;
++------+--------+----------+------+
+| snum | sname  | city     | comm |
++------+--------+----------+------+
+| 1002 | Serres | San Jose | 0.13 |
++------+--------+----------+------+
+1 row in set (0.00 sec)
+

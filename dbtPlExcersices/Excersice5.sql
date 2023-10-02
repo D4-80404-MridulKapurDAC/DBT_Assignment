@@ -1,17 +1,18 @@
 --1
-DELIMITER //
 DROP PROCEDURE IF EXISTS question5_1;
+DELIMITER //
 CREATE PROCEDURE question5_1(p int,r float,t int)
 BEGIN 
     DECLARE I float;
     DROP TABLE IF EXISTS tempp;
     CREATE TABLE tempp(interest float,Total float);
-    SET I = p*(1+r)*t - p;
+    SET I = p*r*t;
     INSERT INTO tempp VALUES(I,p+I);
 END;//
 DELIMITER ;
-call question5_1(100,0.1,1);
+call question5_1(100,0.2,10);
 SELECT * FROM tempp;
+
 --2
 CREATE TABLE date_data(dt date);
 TRUNCATE TABLE date_data;
@@ -45,6 +46,8 @@ BEGIN
     DECLARE t1 CURSOR FOR SELECT dt FROM date_data;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET x = 1;
     OPEN t1;
+    DROP TABLE IF EXISTS answer;
+    CREATE TABLE answer(ans int);
     WHILE x = 0 DO 
         FETCH t1 INTO c;
         INSERT INTO answer VALUES (question5_2(c));
@@ -55,3 +58,13 @@ DELIMITER ;
 TRUNCATE answer;
 call helper();
 SELECT * FROM answer;
++------+
+| ans  |
++------+
+|   21 |
+|   21 |
+|   22 |
+|   22 |
+|   22 |
++------+
+5 rows in set (0.00 sec)
