@@ -66,21 +66,21 @@ RETURNS VARCHAR(255)
 DETERMINISTIC
 BEGIN
     DECLARE s VARCHAR(255) DEFAULT '';
-    DECLARE lef VARCHAR(255) DEFAULT '';
-    DECLARE le VARCHAR(255) DEFAULT '';
-    DECLARE mid VARCHAR(255) DEFAULT '';
-    DECLARE ri VARCHAR(255) DEFAULT '';
-    DECLARE rig VARCHAR(255) DEFAULT '';
     DECLARE l INT DEFAULT 1;
     DECLARE r INT DEFAULT length(inp);
     SET s = inp;
-    WHILE l <= length(inp) DO
-        SET lef = SUBSTR(s,1,LEAST(l,r) - 1);
-        SET le = CONCAT(lef,SUBSTR(s,GREATEST(l,r),1));
-        SET mid = SUBSTR(s,LEAST(l,r)+1, GREATEST(GREATEST(l,r) - LEAST(l,r) -1,0));
-        SET ri = SUBSTR(s,LEAST(l,r),LEAST(ABS(l-r),1));
-        SET rig = CONCAT(ri,SUBSTR(s,GREATEST(l,r)+1,length(s)- GREATEST(l,r)));
-        SET s = CONCAT(le,CONCAT(mid,rig));
+    trav:WHILE l <= length(inp) DO
+        IF l = r THEN
+            SET r = r - 1;
+            SET l = l + 1;
+            ITERATE trav;
+        END IF;
+        SET s = CONCAT(
+            SUBSTR(s,1,LEAST(l,r) - 1),
+            SUBSTR(s,GREATEST(l,r),1),
+            SUBSTR(s,LEAST(l,r)+1, ABS(l-r) -1),
+            SUBSTR(s,LEAST(l,r),1),
+            SUBSTR(s,GREATEST(l,r)+1));
         SET r = r - 1;
         SET l = l + 1;
     END WHILE;
@@ -98,7 +98,7 @@ BEGIN
 END;//
 DELIMITER ;
 
-call helper('abcjenoqde');
+call helper('abcce');
 SELECT * FROM answer;
 +------------+------------+
 | Input      | Output     |
